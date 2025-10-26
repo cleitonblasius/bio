@@ -1,0 +1,241 @@
+/*cor da logo: #bfd7c5 */
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+}
+
+.hidden {
+    display: none;
+}
+
+#sidebar {
+    width: 250px;
+    background-color: #f8f9fa;
+    border-right: 1px solid #dee2e6;
+    display: flex;
+    flex-direction: column;
+}
+
+#sidebar .logo {
+    text-align: center;
+    padding: 20px;
+    border-bottom: 1px solid #dee2e6;
+}
+
+#sidebar .logo img {
+    max-width: 100%;
+    height: auto;
+}
+
+#content {
+    flex: 1;
+    padding-top: 15px;
+    /* padding: 15px 0px; */
+    overflow-y: auto;
+}
+
+.main-menu {
+    color: #495057 !important;
+}
+
+.nav-link {
+    cursor: pointer;
+    /* padding: 10px 15px; */
+    text-decoration: none;
+    background-color: #f9f9f9;
+    color: #939393;
+    transition: background-color 0.2s, color 0.2s;
+    border: var(--bs-nav-tabs-border-width) solid gainsboro !important;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    font-weight: 500;
+    color: #495057 !important;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background-color: #e4f1e7;
+}
+
+.tab-border-top:hover,
+.tab-border-top.active {
+    border-top: 3px solid #bfd7c5 !important;
+}
+
+.tab-pane {
+    display: none;
+    height: 100%;
+}
+
+.tab-pane.active {
+    display: block;
+}
+
+.btn-close-tab {
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    align-content: center;
+}
+
+.btn-close-tab:hover {
+    background: lightgray;
+    border-radius: 50%;
+}
+
+#tabMenu>li:first-child {
+    padding-left: 5px;
+}
+
+.pl-5px {
+    margin-left: 5px;
+}
+
+.no-border {
+    border: 0px none !important;
+}
+
+.group-box {
+    margin: 10px;
+    /* padding: 20px; */
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border: 1px solid #dee2e6;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-save-float {
+    right: 20px;
+    bottom: 20px;
+    z-index: 1000;
+    position: fixed;
+}
+
+.tab-menu-wrapper {
+    width: 100%;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.even {
+    background-color: #f2f2f2;
+}
+
+.no-radius-top {
+    border-top-left-radius: 0px !important;
+    border-top-right-radius: 0px !important;
+}
+
+.border-radius-top {
+    border-radius: var(--bs-card-inner-border-radius) var(--bs-card-inner-border-radius) 0 0;
+}
+
+.h-fit-content {
+    height: fit-content;
+}
+
+.info-box-icon {
+    cursor: pointer;
+}
+
+.shortcuts {
+    cursor: pointer;
+    font-size: 1.875rem;
+    transition: transform 0.3s ease-in-out;
+}
+
+.info-box-icon:hover .shortcuts {
+    transform: scale(1.2);
+}
+
+.badge {
+    font-weight: 400 !important;
+}
+
+.rounded-icon {
+    width: 40px;
+    height: 40px;
+    margin-left: 14px;
+    border-radius: 50%;
+    text-align: center;
+    align-content: center;
+    border: 2px solid #a3cfbb;
+    background-color: mintcream;
+}
+
+.rounded-icon:hover {
+    background-color: #bfd7c5;
+    cursor: pointer;
+    /* rotate: -10deg; */
+}
+
+.nome-terapeuta {
+    padding: 2px 20px !important;
+    margin-left: -15px !important;
+    border-top-right-radius: 15px !important;
+    border-bottom-right-radius: 15px !important;
+    border: 1px solid darkseagreen !important;
+    border-left: 0px none !important;
+}
+
+.div-btn {
+    border: 1px solid #ccc;
+    padding: 2px 6px;
+    border-radius: 5px;
+}
+
+.div-btn:hover {
+    cursor: pointer;
+    color: #3d3d3d;
+    background-color: #f2f2f2;
+}
+
+.form-label {
+    color: #5d5d5d !important;
+    font-weight: 500 !important;
+}
+
+.card-exame {
+    padding: 10px;
+    margin-top: 10px;
+    column-gap: 10px;
+    border-radius: 5px;
+    border: 1px solid #dee2e6;
+}
+
+.delete-card {
+    width: 26px;
+    height: 26px;
+    text-align: center;
+    align-items: center;
+    background: white;
+    border: 1px solid #dee2e6;
+}
+
+.delete-card:hover {
+    cursor: pointer;
+    background: lightgray;
+}
+
+.download-link {
+    color: dimgrey;
+    text-decoration: none;
+}
+
+.download-link:hover {
+    cursor: pointer;
+    color: #0a58ca;
+}
+
+/* Reverter o estilo do fieldset do BootStrap */
+fieldset {
+    all: revert;
+    border: 1px solid #dee2e6;
+}
+
+legend {
+    all: revert;
+}

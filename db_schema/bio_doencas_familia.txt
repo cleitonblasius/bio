@@ -1,0 +1,22 @@
+CREATE TABLE bio_doencas_familia (
+    id SERIAL PRIMARY KEY, -- Identificador único
+    id_paciente INT NOT NULL, -- Chave estrangeira para bio_pacientes(id)
+    mae VARCHAR(255), -- Doenças da Mãe
+    pai VARCHAR(255), -- Doenças do Pai
+    irmaos VARCHAR(255), -- Doenças dos Irmãos
+    avos_maternos VARCHAR(255), -- Doenças dos Avós maternos
+    avos_paternos VARCHAR(255), -- Doenças dos Avós paternos
+    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP, --Data de criação do registro
+    atualizado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP --Data de atualização do registro
+);
+
+ALTER TABLE bio_doencas_familia
+ADD CONSTRAINT fk_id_paciente
+FOREIGN KEY (id_paciente)
+REFERENCES bio_pacientes (id)
+ON DELETE CASCADE;
+
+CREATE TRIGGER set_atualizado_em
+BEFORE UPDATE ON bio_doencas_familia
+FOR EACH ROW
+EXECUTE FUNCTION update_atualizado_em_column();

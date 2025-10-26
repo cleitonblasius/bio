@@ -1,0 +1,22 @@
+CREATE TABLE bio_estrutura_familiar (
+    id SERIAL PRIMARY KEY, -- Identificador único
+    id_paciente INT NOT NULL, -- Chave estrangeira para bio_pacientes(id)
+    tipo_moradia VARCHAR(255), -- Tipo de moradia
+    habitantes VARCHAR(255), -- Descrição de quem mora na casa
+    animais VARCHAR(255), -- Indica se há animais de estimação (sim/não)
+    parentes VARCHAR(255), -- Parentes que moram perto
+    comunidade VARCHAR(255), -- Comunidade (rede de apoio)
+    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP, --Data de criação do registro
+    atualizado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP --Data de atualização do registro
+);
+
+ALTER TABLE bio_estrutura_familiar
+ADD CONSTRAINT fk_id_paciente
+FOREIGN KEY (id_paciente)
+REFERENCES bio_pacientes (id)
+ON DELETE CASCADE;
+
+CREATE TRIGGER set_atualizado_em
+BEFORE UPDATE ON bio_estrutura_familiar
+FOR EACH ROW
+EXECUTE FUNCTION update_atualizado_em_column();

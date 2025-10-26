@@ -1,0 +1,30 @@
+CREATE TABLE bio_historia_social (
+    id SERIAL PRIMARY KEY, -- Identificador único
+    id_paciente INT NOT NULL, -- Chave estrangeira para bio_pacientes(id)
+    bebidas_alcoolicas VARCHAR(255), -- Bebidas alcoólicas
+    tabagismo_drogas VARCHAR(255), -- Tabagismo/ drogas
+    ingestao_agua VARCHAR(255), -- Ingestão de água (quantidade)
+    habitos_sono VARCHAR(255), -- Hábitos de Sono
+    habitos_lazer VARCHAR(255), -- Hábitos de Lazer
+    viagens VARCHAR(255), -- Viagens
+    ambiente_trabalho VARCHAR(255), -- Ambiente de trabalho
+    atividade_fisica VARCHAR(255), -- Atividade física
+    cafe_manha VARCHAR(255), -- Hábitos alimentares => Café da manhã
+    lanche_manha VARCHAR(255), -- Hábitos alimentares => Lanche
+    almoco VARCHAR(255), -- Hábitos alimentares => Almoço
+    lanche_tarde VARCHAR(255), -- Hábitos alimentares => Lanche da tarde
+    janta VARCHAR(255), -- Hábitos alimentares => Janta
+    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP, --Data de criação do registro
+    atualizado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP --Data de atualização do registro
+);
+
+ALTER TABLE bio_historia_social
+ADD CONSTRAINT fk_id_paciente
+FOREIGN KEY (id_paciente)
+REFERENCES bio_pacientes (id)
+ON DELETE CASCADE;
+
+CREATE TRIGGER set_atualizado_em
+BEFORE UPDATE ON bio_historia_social
+FOR EACH ROW
+EXECUTE FUNCTION update_atualizado_em_column();

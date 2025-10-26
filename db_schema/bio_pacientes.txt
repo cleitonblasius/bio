@@ -1,0 +1,38 @@
+CREATE TABLE bio_pacientes (
+    id SERIAL PRIMARY KEY,               -- Identificador único para cada paciente
+    nome VARCHAR(150) NOT NULL,          -- Nome do paciente
+    cpf CHAR(11) UNIQUE NOT NULL,        -- CPF, campo único
+    rg VARCHAR(20),                      -- RG do paciente
+    data_nascimento DATE,                -- Data de nascimento
+    endereco TEXT,                       -- Endereço completo
+    naturalidade VARCHAR(100),           -- Cidade/estado de origem
+    telefone_pessoal VARCHAR(15),        -- Telefone principal do paciente
+    telefone_recados VARCHAR(15),        -- Telefone para recados
+    email VARCHAR(150),                  -- E-mail do paciente
+    profissao VARCHAR(100),              -- Profissão do paciente
+    religiao VARCHAR(100),               -- Religião do paciente
+    genero VARCHAR(20),                  -- Gênero (masculino, feminino, outro)
+    estado_civil VARCHAR(20),            -- Estado civil (solteiro, casado, etc.)
+    cor VARCHAR(20),                     -- Cor ou raça
+    escolaridade VARCHAR(50),            -- Nível de escolaridade
+    filhos INTEGER DEFAULT 0,            -- Quantidade de filhos
+    gestante INTEGER DEFAULT 2,          --Se é gestante
+    marcapasso INTEGER DEFAULT 2,        --Se utiliza marcapasso
+    obs_terapeuta TEXT,                  -- Endereço completo
+    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP, --Data de criação do registro
+    atualizado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP --Data de atualização do registro
+);
+
+//Função para atualizar os campos "atualizado_em"
+CREATE OR REPLACE FUNCTION update_atualizado_em_column()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.atualizado_em = CURRENT_TIMESTAMP;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER set_atualizado_em
+BEFORE UPDATE ON bio_pacientes
+FOR EACH ROW
+EXECUTE FUNCTION update_atualizado_em_column();

@@ -1,0 +1,42 @@
+CREATE TABLE bio_historico_saude (
+    id SERIAL PRIMARY KEY, -- Identificador único
+    id_paciente INT NOT NULL, -- Chave estrangeira para bio_pacientes(id)
+    doencas_infancia VARCHAR(255), --Doenças de infância
+    vacinacao VARCHAR(255), --Vacinação
+    transfusao VARCHAR(255), --Transfusão sanguínea
+    doacao_sangue VARCHAR(255), --Doação de sangue
+    alergias VARCHAR(255), --Alergias
+    fraturas VARCHAR(255), --Fraturas
+    cirurgias VARCHAR(255), --Cirurgias
+    tatuagens VARCHAR(255), --Tatuagens
+    piercings VARCHAR(255), --Piercings
+    doencas_sexuais VARCHAR(255), --Doenças sexualmente transmissíveis
+    fenomenos_tumorais VARCHAR(255), --Fenômenos tumorais
+    problemas_memoria VARCHAR(255), --Problemas de memória
+    problemas_dormir VARCHAR(255), --Problemas para dormir
+    problemas_visao VARCHAR(255), --Problemas com a visão
+    problemas_audicao VARCHAR(255), --Problemas com audição
+    problemas_digestivos VARCHAR(255), --Problemas Digestivos
+    problemas_renais VARCHAR(255), --Problemas renais e urinários
+    problemas_respiratorios VARCHAR(255), --Problemas respiratórios
+    problemas_cardiacos VARCHAR(255), --Problemas Cardíacos
+    problemas_metabolicos VARCHAR(255), --Problemas metabólicos
+    problemas_psicoemocionais VARCHAR(255), --Problemas psicoemocionais
+    problemas_hepaticos VARCHAR(255), --Problemas hepáticos
+    problemas_reprodutor VARCHAR(255), --Problemas no sistema reprodutor
+    problemas_musculares VARCHAR(255), --Problemas muscoloesqueléticos
+    problemas_pele VARCHAR(255), --Problemas de pele
+    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP, --Data de criação do registro
+    atualizado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP --Data de atualização do registro
+);
+
+ALTER TABLE bio_historico_saude
+ADD CONSTRAINT fk_id_paciente
+FOREIGN KEY (id_paciente)
+REFERENCES bio_pacientes (id)
+ON DELETE CASCADE;
+
+CREATE TRIGGER set_atualizado_em
+BEFORE UPDATE ON bio_historico_saude
+FOR EACH ROW
+EXECUTE FUNCTION update_atualizado_em_column();

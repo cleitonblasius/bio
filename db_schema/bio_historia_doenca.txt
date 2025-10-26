@@ -1,0 +1,25 @@
+CREATE TABLE bio_historia_doenca (
+    id SERIAL PRIMARY KEY, -- Identificador único
+    id_paciente INT NOT NULL, -- Chave estrangeira para bio_pacientes(id)
+    problema TEXT, -- Qual o problema
+    tipo_dor VARCHAR(255), -- Tipo da dor (irradiada ou local)
+    intensidade_dor VARCHAR(255), -- Intensidade da dor
+    melhorar TEXT, -- O que faz a dor melhorar
+    desencadeia TEXT, -- O que desencadeia
+    acompanha_sintoma TEXT, -- O que acompanha o sintoma
+    inicio_doenca TEXT, -- Período da doença: (Quando começou)
+    situacao_atual TEXT, -- Neste instante como se encontra
+    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP, --Data de criação do registro
+    atualizado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP --Data de atualização do registro
+);
+
+ALTER TABLE bio_historia_doenca
+ADD CONSTRAINT fk_id_paciente
+FOREIGN KEY (id_paciente)
+REFERENCES bio_pacientes (id)
+ON DELETE CASCADE;
+
+CREATE TRIGGER set_atualizado_em
+BEFORE UPDATE ON bio_historia_doenca
+FOR EACH ROW
+EXECUTE FUNCTION update_atualizado_em_column();

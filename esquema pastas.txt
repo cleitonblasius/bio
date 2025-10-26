@@ -1,0 +1,19 @@
+bio/
+├── public/          # Diretório público acessível pela web (index.php, assets, etc.)
+│   ├── index.php    # Arquivo principal (ponto de entrada)
+│   ├── css/         # Arquivos de estilos (CSS)
+│   ├── js/          # Scripts JavaScript
+│   ├── images/      # Imagens
+│
+├── src/             # Código-fonte principal da aplicação
+│   ├── config/      # Configurações gerais
+│   │   └── Database.php # Classe de conexão com o banco de dados
+│   ├── controllers/ # Controladores (lógica de negócios)
+│   ├── models/      # Classes que representam as tabelas (ex.: BioPaciente.php)
+│   ├── views/       # Arquivos HTML/PHP para renderização (templates)
+│
+├── logs/            # Logs da aplicação (erros, acesso, etc.)
+├── vendor/          # Dependências do Composer
+├── .env             # Variáveis de ambiente (opcional para configurar o banco)
+├── composer.json    # Arquivo do Composer para gerenciar dependências
+└── README.md        # Documentação do projeto
