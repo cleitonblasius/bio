@@ -1,8 +1,30 @@
 <?php
-// Exemplo de variáveis vindas do backend
-$paciente = "Cleiton Blasius";
-$id_atendimento = 1234;
+require_once __DIR__ . '/../../vendor/autoload.php';
+require_once __DIR__ . '/../functions.php';
+
+use App\Controllers\AtendimentoController;
+
+$atendimentoController = new AtendimentoController();
+
 $tools = []; // ['npn', 'rastreio', 'dem'];
+$viewMode = (bool) $_REQUEST['view'] ?? false;
+$idPaciente = $_REQUEST['id_paciente'] ?? -1;
+$idAtendimento = (int) $_REQUEST['id_atendimento'] ?: -1;
+
+if (empty($idAtendimento)) {
+    die('ID do atendimento não recebido. Não é possível continuar.');
+}
+
+if ($idAtendimento > 0) {
+    //Se o atendimento já existe, carrega os dados
+    $dadosAtendimentos = $atendimentoController->getDadosAtendimento($idAtendimento);
+    $idPaciente = $dadosAtendimentos['ID_PACIENTE'];
+    $idRastreio = $dadosAtendimentos['ID_RASTREIO'];
+    $idNpn = $dadosAtendimentos['ID_NPN'];
+    $idDem = $dadosAtendimentos['ID_DEM'];
+    $nomePaciente = $dadosAtendimentos['NOME'];
+    $criadoEm = $dadosAtendimentos['CRIADO_EM_DMY'];
+}
 
 // Lista de ferramentas disponíveis
 $ferramentasDisponiveis = ['npn', 'dem', 'rastreio'];
@@ -16,6 +38,7 @@ $ferramentasDisponiveis = ['npn', 'dem', 'rastreio'];
     <title>Atendimento Biomagnetismo</title>
     <link rel="stylesheet" href="../../vendor/bootstrap-5.3.3-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../vendor/fontawesome-free-6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="../../vendor/toastr/css/toastr.min.css">
     <style>
         body {
             position: relative;
@@ -30,7 +53,7 @@ $ferramentasDisponiveis = ['npn', 'dem', 'rastreio'];
             background: linear-gradient(135deg, #2e7d32, #388e3c);
             color: white;
             position: relative;
-            padding: 1.5rem;
+            padding: 10px;
         }
 
         .card-paciente h2 {
@@ -138,8 +161,8 @@ $ferramentasDisponiveis = ['npn', 'dem', 'rastreio'];
         <!-- Card do paciente -->
         <div class="card-paciente">
             <div>
-                <h2><?= $paciente ?></h2>
-                <small>ID Atendimento: <?= $id_atendimento ?></small>
+                <h3><?= $nomePaciente ?></h3>
+                <small>ID Atendimento: <?= $idAtendimento ?></small>
             </div>
             <div class="actions">
                 <?php
@@ -194,11 +217,30 @@ $ferramentasDisponiveis = ['npn', 'dem', 'rastreio'];
 
     <script src="../../vendor/jquery/jquery-3.7.1.min.js"></script>
     <script src="../../vendor/bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../vendor/toastr/js/toastr.min.js"></script>
     <script>
         const FERRAMENTAS = <?php echo json_encode($ferramentasDisponiveis); ?>;
-        const ID_ATENDIMENTO = <?= $id_atendimento ?>
+        const ID_ATENDIMENTO = <?= $idAtendimento ?>
 
         $(function() {
+            toastr.options = {
+                "closeButton": true, // Exibe o botão "X" para fechar
+                "debug": false, // Desativa o modo debug
+                "newestOnTop": true, // Exibe novas notificações no topo
+                "progressBar": true, // Exibe uma barra de progresso
+                "positionClass": "toast-top-right", // Posição padrão (superior direita)
+                "preventDuplicates": true, // Evita mensagens duplicadas
+                "onclick": null, // Nenhuma ação ao clicar
+                "showDuration": "300", // Duração da animação de entrada (ms)
+                "hideDuration": "1000", // Duração da animação de saída (ms)
+                "timeOut": "5000", // Tempo antes de desaparecer (ms)
+                "extendedTimeOut": "1000", // Tempo extra se o mouse estiver sobre o toast
+                "showEasing": "swing", // Efeito da animação de entrada
+                "hideEasing": "linear", // Efeito da animação de saída
+                "showMethod": "fadeIn", // Método de exibição
+                "hideMethod": "fadeOut" // Método de ocultação
+            };
+
             $('[data-bs-toggle="tooltip"]').tooltip();
 
             const addedTools = new Set();

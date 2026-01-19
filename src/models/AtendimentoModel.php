@@ -4,15 +4,7 @@ namespace App\Models;
 
 class AtendimentoModel extends BaseModel
 {
-    public function getById(string $table, string $column, int $id): array
-    {
-        $result = $this->db->select(
-            "SELECT * FROM {$table} WHERE {$column} = :id_value",
-            ['id_value' =>  $id]
-        );
-        return $result[0] ?? [];
-    }
-
+    //Cria um novo atendimento
     public function insertBioAtendimentos(array $request): int
     {
         return $this->db->insert(
@@ -27,6 +19,7 @@ class AtendimentoModel extends BaseModel
         );
     }
 
+    //Atualiza os dados do paciente, conforme informado no inicio do atendimento
     public function updateBioPacientesAtend(array $request)
     {
         $this->db->update(
@@ -64,6 +57,52 @@ class AtendimentoModel extends BaseModel
                 BA.CRIADO_EM DESC",
         );
         return $result ?? [];
+    }
+
+    /**
+     * Retorna os dados de um atendimento
+     *
+     * @param integer $id - Identificador do atendimento
+     * @return array
+     */
+    public function getDadosAtendimento(int $id): array
+    {
+        $result = $this->db->select(
+            "SELECT
+                BA.ID,
+                BA.ID_PACIENTE,
+                BA.ID_RASTREIO,
+                BA.ID_NPN,
+                BA.ID_DEM,
+                BP.NOME,
+                DATE_FORMAT(BA.CRIADO_EM, '%d/%m/%Y') AS CRIADO_EM_DMY
+            FROM
+                BIO_ATENDIMENTOS BA
+            INNER JOIN BIO_PACIENTES BP ON
+                (BA.ID_PACIENTE = BP.ID)
+            WHERE BA.ID = :id_atendimento
+            ORDER BY
+                BA.CRIADO_EM DESC",
+            ['id_atendimento' => $id]
+        );
+        return !empty($result) ? $result[0] : [];
+    }
+
+    public function getParesBiomagneticos(): array
+    {
+        $pares = [];
+        $result = $this->db->select("SELECT CODIGO_PAR, CLASSIFICACAO, DESCRICAO_PAR, PATOGENO, DIAGNOSTICO FROM BIO_PARES_RASTREIO");
+
+        foreach ($result as $record) {
+            $pares[$record['CODIGO_PAR']] = [
+                'classificacao' => $record['CLASSIFICACAO'],
+                'par' => $record['DESCRICAO_PAR'],
+                'patogeno' => $record['PATOGENO'],
+                'diagnostico' => $record['DIAGNOSTICO'],
+            ];
+        };
+
+        return $pares;
     }
 
     public function getRatreiosAtendimento(): array

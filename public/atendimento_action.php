@@ -39,7 +39,7 @@ switch ((int) $_REQUEST['action']) {
         break;
 }
 
-//Atualizar informações e criar paciente
+//Atualizar informações e criar atendimento
 function updateDataAndCreateAtend()
 {
     global $model;

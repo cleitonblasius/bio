@@ -37,7 +37,7 @@ $hintEstadoEmocional = "Descreva o estado emocional do paciente ao iniciar o ate
     <link rel="stylesheet" href="../vendor/fontawesome-free-6.7.2/css/all.min.css">
     <link rel="stylesheet" href="../vendor/DataTables/css/datatables.min.css">
     <link rel="stylesheet" href="../vendor/select2/css/select2.min.css">
-    <link href="./css/global.css" rel="stylesheet">
+    <link href="../assets/css/global.css" rel="stylesheet">
 </head>
 
 <body>
@@ -229,6 +229,23 @@ $hintEstadoEmocional = "Descreva o estado emocional do paciente ao iniciar o ate
                     </table>
                 </div>
                 <div class="modal-footer p-1">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal dados do paciente -->
+    <div class="modal fade" id="modalPacienteView" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalPacienteViewLabel" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content">
+                <div class="modal-header" style="padding: 5px;">
+                    <h1 class="modal-title fs-5" id="modalPacienteViewLabel"><i class="fa-solid fa-hospital-user"></i>Visualizar Paciente</h1>
+                </div>
+                <div class="modal-body" style="padding: 0px;">
+                    <iframe id="iframe_paciente_view" src="" style="width: 100%; height: 99%; border: none;"></iframe>
+                </div>
+                <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
                 </div>
             </div>
@@ -436,25 +453,17 @@ $hintEstadoEmocional = "Descreva o estado emocional do paciente ao iniciar o ate
 
         // Função para o botão
         function visualizarAtendimento(id) {
-            alert("Visualizar atendimento ID: " + id);
-            // Aqui você pode abrir modal ou redirecionar!
+            if (typeof top.addTab == "function") {
+                top.addTab('Visualizar atendimento', `./atendimento/atendimento.php?id_atendimento=${id}&view=true`, true);
+            }
         }
 
-        function exibirModalAtendimentos(id, nomePaciente) {
-            $('#modalPacienteLabel').text(nomePaciente);
+        //Abrir aba de dados do paciente
+        function verDadosPaciente(id, nomePaciente) {
+            $('#iframe_paciente_view').prop('src', `./paciente_data.php?id_paciente=${id}&view=true`);
 
-            /* $('#tabelaAtendimentosPaciente').DataTable({
-                responsive: true,
-                columnDefs: [{
-                    width: '30px',
-                    targets: 0
-                }],
-                language: {
-                    url: "../vendor/DataTables/js/pt-BR.json"
-                }
-            }); */
-
-            const modalPaciente = new bootstrap.Modal(document.getElementById('modalPaciente'));
+            const modalPaciente = new bootstrap.Modal(document.getElementById('modalPacienteView'));
+            $('#modalPacienteViewLabel').text(`Visualizar Paciente: ${nomePaciente}`);
             modalPaciente.show();
         }
 

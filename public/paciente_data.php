@@ -7,6 +7,7 @@ use App\Controllers\PacienteController;
 $pacientesController = new PacienteController();
 
 $idPaciente = $_REQUEST['id_paciente'] ?? -1;
+$viewMode = $_REQUEST['view'] ?? false;
 
 $bioPacientes = $bioEstruturaFamiliar = $bioDoencasFamilia = $bioHistoricoSaude = $bioHistoriaFisiologica = $bioHistoriaSocial = $bioHistoriaDoenca = [];
 $qtdFilhos = 0;
@@ -61,7 +62,7 @@ if ($idPaciente > 0) {
     <title>Ficha do Cliente</title>
     <link rel="stylesheet" href="../vendor/bootstrap-5.3.3-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../vendor/fontawesome-free-6.7.2/css/all.min.css">
-    <link href="./css/global.css" rel="stylesheet">
+    <link href="../assets/css/global.css" rel="stylesheet">
 </head>
 
 <body>
@@ -786,6 +787,15 @@ if ($idPaciente > 0) {
                 $('#grupoFeminino2').fadeOut();
             }
         }
+
+        //Desabilita todos os campos se estiver em modo visualização
+        <?php if ($viewMode): ?>
+            const selectors = 'input, select, textarea, button';
+            const formEl = document.getElementById('form_paciente');
+            formEl.querySelectorAll(selectors).forEach(el => {
+                el.disabled = true;
+            });
+        <?php endif; ?>
     </script>
 </body>
 

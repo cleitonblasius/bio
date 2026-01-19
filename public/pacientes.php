@@ -18,7 +18,7 @@ $dados = $pacientesController->getAllBasicData();
     <link rel="stylesheet" href="../vendor/bootstrap-5.3.3-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../vendor/fontawesome-free-6.7.2/css/all.min.css">
     <link rel="stylesheet" href="../vendor/DataTables/css/datatables.min.css">
-    <link href="./css/global.css" rel="stylesheet">
+    <link href="../assets/css/global.css" rel="stylesheet">
 </head>
 
 <body>

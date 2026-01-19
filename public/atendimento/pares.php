@@ -1,5 +1,15 @@
 <?php
-return [
+
+use App\Models\AtendimentoModel;
+
+require_once(__DIR__ . '/../../src/config/Database.php');
+require_once(__DIR__ . '/../../src/models/BaseModel.php');
+require_once(__DIR__ . '/../../src/models/AtendimentoModel.php');
+
+$model = new AtendimentoModel();
+return $model->getParesBiomagneticos();
+
+/* return [
     "R1" => [
         "classificacao" => "Reservatório universal",
         "par" => "Cápsula renal D/E - Rim Ips",
@@ -20,3 +30,4 @@ return [
     ]
     // ... até R300
 ];
+ */

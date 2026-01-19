@@ -47,7 +47,7 @@ class Database {
             $stmt->execute($data);
             return $this->conn->lastInsertId();
         } catch (PDOException $e) {
-            return ['status' => 'error', 'message' => "Erro no INSERT: " . $e->getMessage()];
+            return false;
         }
     }
 
@@ -63,7 +63,7 @@ class Database {
             $stmt->execute(array_merge($data, $where));
             return $stmt->rowCount();
         } catch (PDOException $e) {
-            return ['status' => 'error', 'message' => "Erro no UPDATE: " . $e->getMessage()];
+            return false;
         }
     }
 
@@ -78,7 +78,7 @@ class Database {
             $stmt->execute($where);
             return $stmt->rowCount();
         } catch (PDOException $e) {
-            return ['status' => 'error', 'message' => "Erro no DELETE: " . $e->getMessage()];
+            return false;
         }
     }
 }

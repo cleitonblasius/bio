@@ -151,14 +151,14 @@ $pares = include 'pares.php'; // importa todos os pares biomagnéticos
                     dados: JSON.stringify(dados)
                 },
                 success: function(response) {
-                    console.log('Rastreio salvo com sucesso:', response);
+                    top.toastr.success(error, 'Rastreio salvo com sucesso.');
                 },
                 error: function(xhr, status, error) {
                     console.error('Erro ao salvar rastreio:', error);
+                    top.toastr.error('Houve um erro ao salvar as informações de rastreio.');
                 }
             });
         }
-
 
         $(function() {
             function adicionarLinha() {
@@ -232,6 +232,9 @@ $pares = include 'pares.php'; // importa todos os pares biomagnéticos
                     card.find(".par").val(dados.par);
                     card.find(".patogeno").val(dados.patogeno);
                     card.find(".diagnostico").val(dados.diagnostico);
+                } else {
+                    top.toastr.warning(`Código ${codigo} não encontrado!`);
+                    return;
                 }
 
                 setStartAndEndTime(card.find(".hora-rastreio"));

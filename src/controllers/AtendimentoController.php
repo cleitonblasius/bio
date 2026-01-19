@@ -57,4 +57,13 @@ class AtendimentoController
             return [];
         }
     }
+
+    public function getDadosAtendimento(int $idAtendimento): array
+    {
+        try {
+            return $this->atendimentoModel->getDadosAtendimento($idAtendimento);
+        } catch (\Throwable $th) {
+            return [];
+        }
+    }
 }

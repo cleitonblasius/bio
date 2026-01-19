@@ -228,6 +228,9 @@ CREATE TABLE bio_atendimentos(
     problema TEXT,                   		-- Descrição do problema (Detalhes do problema informados pela terapeuta)
     estado_emocional TEXT NOT NULL,         -- Estado emocional do paciente ao iniciar o atendimento
     status TINYINT,         				-- Situação do atendimento (1 - Criado mas não iniciado, 2 - Em andamento, 3 - Encerrado, 4 - Cancelado)
+    id_rastreio INT NULL,             	    -- Chave estrangeira para bio_atendimento_rastreio(id)
+    id_npn INT NULL,             	    	-- Chave estrangeira para bio_atendimento_npn(id)
+    id_dem INT NULL,             	    	-- Chave estrangeira para bio_atendimento_dem(id)
     criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- Data de criação do registro
     atualizado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, -- Data de atualização
     FOREIGN KEY (id_paciente) REFERENCES bio_pacientes(id) ON DELETE CASCADE

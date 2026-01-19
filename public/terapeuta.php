@@ -23,7 +23,7 @@ if ($idTerapeuta > 0) {
     <title>Dados do terapeuta</title>
     <link rel="stylesheet" href="../vendor/bootstrap-5.3.3-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../vendor/fontawesome-free-6.7.2/css/all.min.css">
-    <link href="./css/global.css" rel="stylesheet">
+    <link href="../assets/css/global.css" rel="stylesheet">
 
     <style>
         /* From Uiverse.io by G4b413l */

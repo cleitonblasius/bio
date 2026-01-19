@@ -23,7 +23,7 @@ $listaAtendimentos = $atendimentoController->getAllDataAtendimento();
     <link rel="stylesheet" href="../vendor/fontawesome-free-6.7.2/css/all.min.css">
     <link rel="stylesheet" href="../vendor/DataTables/css/datatables.min.css">
     <link rel="stylesheet" href="../vendor/select2/css/select2.min.css">
-    <link href="./css/global.css" rel="stylesheet">
+    <link href="../assets/css/global.css" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
